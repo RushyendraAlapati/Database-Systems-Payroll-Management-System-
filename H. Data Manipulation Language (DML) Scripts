@@ -1,0 +1,49 @@
+/* Insert a new department */
+insert into departments (`DepartmentID`, `DepartmentName`, `ManagerID`) values (6, 'Managing', 206);
+
+/* Insert a new employee */
+insert into employees (`EmployeeID`, `FirstName`, `LastName`, `EmailID`, `DepartmentID`, `JobTitle`, `PhoneNumber`, `Salary`) 
+values (106, 'Dennis', 'Ritchie', 'dennis.ritchie@gmail.com', 1, 'Backend Developer', '8485923696', 73000);
+
+/* Update an employee's salary */
+UPDATE Employees SET Salary = 75000 WHERE EmployeeID = '106';
+
+/* Update bank information for an employee */
+UPDATE BankInformation SET AccountNumber = '5366158506' WHERE EmployeeID = '103';
+
+/* Delete an employee's deductions */
+DELETE FROM Employeedeductions WHERE EmployeeID = '105' AND DeductionID = '505';
+
+/* Select basic information for employees in a specific departmentid */
+SELECT EmployeeID, FirstName, LastName, JobTitle, EmailID FROM Employees WHERE DepartmentID = 1;
+
+/* 1. INNER JOIN - Join Employees and Departments to get employee names along with their department names */
+SELECT Employees.EmployeeID, Departments.DepartmentName 
+FROM Employees 
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+
+/* 2. LEFT JOIN -  This Join ensures that all entries from the EmployeeDeductions table for '103' are included in the result set. */
+SELECT EmployeeDeductions.EmployeeID, Deductions.DeductionName, Deductions.DeductionAmount 
+FROM EmployeeDeductions 
+LEFT JOIN Deductions ON EmployeeDeductions.DeductionID = Deductions.DeductionID 
+WHERE EmployeeDeductions.EmployeeID = '103';
+
+-- Calculate the average salary by department
+SELECT DepartmentID, AVG(Salary) AS AverageSalary FROM Employees GROUP BY DepartmentID;
+
+-- Count the number of employees in each department
+SELECT DepartmentID, COUNT(EmployeeID) AS NumberOfEmployees FROM Employees GROUP BY DepartmentID;
+
+/* List employees, their department, and their total deductions */
+SELECT Employees.FirstName, Departments.DepartmentName, SUM(Deductions.DeductionAmount) AS TotalDeductions 
+FROM Employees 
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID 
+JOIN EmployeeDeductions ON Employees.EmployeeID = EmployeeDeductions.EmployeeID 
+JOIN Deductions ON EmployeeDeductions.DeductionID = Deductions.DeductionID 
+GROUP BY Employees.EmployeeID;
+
+/* List all employees who have a specific allowance */
+SELECT Employees.EmployeeID, EmployeeAllowances.EmployeeAllowance 
+FROM Employees 
+JOIN EmployeeAllowances ON Employees.EmployeeID = EmployeeAllowances.EmployeeID 
+WHERE EmployeeAllowances.EmployeeAllowance = '200';
