@@ -1,0 +1,20 @@
+/* Transaction */
+START TRANSACTION;
+
+/* Update the employee's department */
+UPDATE Employees
+SET DepartmentID = 1
+WHERE EmployeeID = '102';
+
+/* Update the employee's allowances */
+UPDATE EmployeeAllowances
+SET EmployeeAllowance = 220
+WHERE EmployeeID = '102';
+
+/* Update the employee's deductions */
+UPDATE salarydetails
+SET DeductionAmount = 220
+WHERE EmployeeID = '102';
+
+/* Commit the transaction to save changes */
+COMMIT;
