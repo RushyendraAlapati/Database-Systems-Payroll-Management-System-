@@ -1,0 +1,17 @@
+/* Data Security */
+CREATE USER 'Andrew_Fuller'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'Andrew_Fuller'@'localhost' WITH GRANT OPTION;
+
+CREATE USER 'Steven_king'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE ON Employees TO 'Steven_king'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON Departments TO 'Steven_king'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON SalaryDetails TO 'Steven_king'@'localhost';
+
+CREATE USER 'James_Landry'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT ON Employees TO 'James_Landry'@'localhost';
+GRANT SELECT, UPDATE ON SalaryDetails TO 'James_Landry'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON EmployeeAllowances TO 'James_Landry'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON EmployeeDeductions TO 'James_Landry'@'localhost';
+
+CREATE USER 'john_deo'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT ON Employees TO 'john_deo'@'localhost';
