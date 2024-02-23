@@ -1,0 +1,18 @@
+/* Views 1 */
+CREATE VIEW EmployeeDepartmentDetails AS
+SELECT Employees.EmployeeID, Employees.FirstName, Employees.JobTitle, Departments.DepartmentName
+FROM Employees
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+
+/* View 2 */
+CREATE VIEW EmployeePayrollInfo AS
+SELECT Employees.EmployeeID, Employees.FirstName, 
+SUM(EmployeeAllowances.EmployeeAllowance) AS TotalAllowances, 
+SUM(salarydetails.DeductionAmount) AS TotalDeductions, 
+SalaryDetails.BaseSalary, 
+(SalaryDetails.BaseSalary + SUM(EmployeeAllowances.EmployeeAllowance) - SUM(salarydetails.DeductionAmount)) AS NetSalary
+FROM Employees
+JOIN SalaryDetails ON Employees.EmployeeID = SalaryDetails.EmployeeID
+LEFT JOIN EmployeeAllowances ON Employees.EmployeeID = EmployeeAllowances.EmployeeID
+LEFT JOIN EmployeeDeductions ON Employees.EmployeeID = EmployeeDeductions.EmployeeID
+GROUP BY Employees.EmployeeID, SalaryDetails.BaseSalary;
